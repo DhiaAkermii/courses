@@ -133,6 +133,31 @@ struct Node* findMaximum(struct Node* root) {
 }
 
 
+// largeur de l'arbre
+int treeHeight(struct Node* root) {
+    if (root == NULL)
+        return 0;
+
+    int leftHeight = treeHeight(root->left);
+    int rightHeight = treeHeight(root->right);
+
+    if(leftHeight > rightHeight) return leftHeight +1;
+    else  return rightHeight + 1;
+    // Return the maximum of left and right subtree heights, plus 1 for the current level
+    return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
+}
+
+
+// taille de l'arbre
+int treeSize(struct Node* root) {
+    if (root == NULL)
+        return 0;
+
+    // Return the size of the left subtree plus the size of the right subtree, plus 1 for the current node
+    return treeSize(root->left) + treeSize(root->right) + 1;
+}
+
+
 int main() {
     struct Node* arbreBinaireDeRecherche = NULL;
 
@@ -196,10 +221,14 @@ int main() {
     }
 
     if (maxNode != NULL) {
-        printf("\nLe maximum dans cet arbre binaire de recherche est = : %d\n", maxNode->data);
+        printf("\nLe maximum dans cet arbre binaire de recherche est = : %d", maxNode->data);
     } else {
         printf("The BST is empty.\n");
     }
 
-    return 0;
+
+    printf("\nLargeur d'arbre: %d",treeHeight(arbreBinaireDeRecherche));
+    printf("\nLa taille de l'arbre: %d",treeSize(arbreBinaireDeRecherche));
+
+        return 0;
 }
